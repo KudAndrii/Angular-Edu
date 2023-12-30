@@ -1,0 +1,9 @@
+<a class="list-group-item clearfix as-btn" (click)="updateActiveRecipe()">
+  <div class="pull-left">
+    <h3 class="list-group-item-heading">{{ recipe.name }}</h3>
+    <p class="list-group-item-text">{{ recipe.description }}</p>
+  </div>
+  <div class="pull-right">
+    <img [src]="recipe.imageUrl" [alt]="recipe.name" class="img-responsive" style="max-height: 50px;">
+  </div>
+</a>

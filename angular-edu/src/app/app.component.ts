@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Pages } from './shared/pages.enum';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'angular-edu';
+  protected readonly Pages = Pages;
+
+  activePage: Pages = Pages.Recipes;
+
+  updateActivePage(page: Pages) {
+    this.activePage = page;
+  }
 }
