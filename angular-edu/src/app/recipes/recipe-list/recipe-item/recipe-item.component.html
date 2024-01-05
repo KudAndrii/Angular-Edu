@@ -1,4 +1,4 @@
-<a class="list-group-item clearfix as-btn" (click)="updateActiveRecipe()">
+<a [routerLink]="[recipe.slug]" class="list-group-item clearfix as-btn">
   <div class="pull-left">
     <h3 class="list-group-item-heading">{{ recipe.name }}</h3>
     <p class="list-group-item-text">{{ recipe.description }}</p>

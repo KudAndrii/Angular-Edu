@@ -1,16 +1,22 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Ingredient } from '../../shared/models/ingredient.model';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { Ingredient } from 'shared/models/ingredient.model';
+import { ShoppingListService } from 'shared/services/shopping-list.service';
 
 @Component({
   selector: 'app-shopping-edit',
   templateUrl: './shopping-edit.component.html',
   styleUrl: './shopping-edit.component.css'
 })
-export class ShoppingEditComponent {
-  @Input() ingredient: Ingredient;
-  @Output('on-add') addIngredientEmit = new EventEmitter<Ingredient>();
+export class ShoppingEditComponent implements OnInit {
+  ingredient: Ingredient;
 
-  addIngredient() {
-    this.addIngredientEmit.emit(this.ingredient);
+  constructor(private route: ActivatedRoute, private cartService: ShoppingListService) { }
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.ingredient = this.cartService.findOne(params['name'])
+    })
   }
 }

@@ -1,23 +1,23 @@
-import { Component } from '@angular/core';
-import { Ingredient } from '../shared/models/ingredient.model';
+import { Component, OnInit } from '@angular/core';
+
+import { Ingredient } from 'shared/models/ingredient.model';
+import { ShoppingListService } from 'shared/services/shopping-list.service';
+import { ActivatedRoute, Data } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
   styleUrl: './shopping-list.component.css'
 })
-export class ShoppingListComponent {
-  ingredients: Ingredient[] = [
-    new Ingredient('Apples', 5),
-    new Ingredient("Potato", 10)
-  ];
-  selectedIngredient: Ingredient = new Ingredient('', 0);
+export class ShoppingListComponent implements OnInit {
+  ingredients: Ingredient[] = [];
 
-  updateSelectedIngredient(index: number) {
-    this.selectedIngredient = this.ingredients[index];
-  }
+  constructor(private cartService: ShoppingListService, private route: ActivatedRoute) { }
 
-  onAddIngredient(ingredient: Ingredient) {
-    this.ingredients.push(new Ingredient(ingredient.name, ingredient.amount));
+  async ngOnInit() {
+    // this.ingredients.push(...await this.cartService.getAll());
+    this.route.data.subscribe((data: Data) => {
+      this.ingredients = data['cart'];
+    });
   }
 }

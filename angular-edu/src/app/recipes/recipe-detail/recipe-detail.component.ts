@@ -1,21 +1,29 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Recipe } from '../../shared/models/recipe.model';
-import { RecipesService } from '../../shared/services/recipes.service';
+import { Component, DoCheck, OnInit } from '@angular/core';
+
+import { Recipe } from 'shared/models/recipe.model';
+import { RecipesService } from 'shared/services/recipes.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
   styleUrl: './recipe-detail.component.css'
 })
-export class RecipeDetailComponent implements OnInit {
+export class RecipeDetailComponent implements OnInit, DoCheck {
   recipe?: Recipe;
 
-  constructor(private recipesService: RecipesService) {}
+  constructor(private route: ActivatedRoute, private recipesService: RecipesService, private router: Router) {}
 
   ngOnInit() {
-    this.recipe = this.recipesService.getActiveRecipe();
-    this.recipesService.activeRecipeUpdated.subscribe((recipe: Recipe) => {
-      this.recipe = recipe;
+    this.route.params.subscribe(async params => {
+      this.recipe = this.recipesService.findOne(params['slug']);
     });
+  }
+
+  async ngDoCheck() {
+    if (this.recipe === null) {
+      console.warn('redirection from not found recipe');
+      await this.router.navigate(['../'], { relativeTo: this.route });
+    }
   }
 }

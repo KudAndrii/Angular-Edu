@@ -1,18 +1,10 @@
 <div class="row">
   <div class="col-xs-10">
-    <app-shopping-edit
-      [ingredient]="selectedIngredient"
-      (on-add)="onAddIngredient($event)"
-    ></app-shopping-edit>
-    <hr>
+    <router-outlet></router-outlet>
     <ul class="list-group">
       @for (ingredient of ingredients; track $index) {
         <li>
-          <a
-            class="list-group-item"
-            style="cursor: pointer;"
-            (click)="updateSelectedIngredient($index)"
-          >
+          <a [routerLink]="[ingredient.name]" class="list-group-item as-btn">
             {{ ingredient.name }} ({{ ingredient.amount }})
           </a>
         </li>

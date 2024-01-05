@@ -11,6 +11,11 @@ import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-it
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { DropdownDirective } from './shared/directives/dropdown.directive';
+import { RouterModule } from '@angular/router';
+import { routes } from './app.routes';
+import { NgOptimizedImage } from '@angular/common';
+import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -22,11 +27,15 @@ import { DropdownDirective } from './shared/directives/dropdown.directive';
     RecipeItemComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
-    DropdownDirective
+    DropdownDirective,
+    HomeComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot(routes),
+    NgOptimizedImage
   ],
   providers: [],
   bootstrap: [AppComponent]
